@@ -10,3 +10,14 @@ export const addItem = (cartItems, newItem) => {
     return [...cartItems, { ...newItem, quantity: 1 }];
   }
 };
+
+export const removeItem = (cartItems, removedItem) => {
+  return cartItems
+    .map(item => {
+      if (item.id === removedItem.id) {
+        return { ...item, quantity: item.quantity - 1 };
+      }
+      return item;
+    })
+    .filter(({ quantity }) => quantity);
+};
