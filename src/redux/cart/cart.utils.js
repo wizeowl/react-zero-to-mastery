@@ -11,13 +11,14 @@ export const addItem = (cartItems, newItem) => {
   }
 };
 
-export const removeItem = (cartItems, removedItem) => {
-  return cartItems
-    .map(item => {
-      if (item.id === removedItem.id) {
-        return { ...item, quantity: item.quantity - 1 };
-      }
-      return item;
-    })
-    .filter(({ quantity }) => quantity);
-};
+export const removeItem = (cartItems, removedItem) => cartItems
+  .map(item => {
+    if (item.id === removedItem.id) {
+      return { ...item, quantity: item.quantity - 1 };
+    }
+    return item;
+  })
+  .filter(({ quantity }) => quantity);
+
+export const clearItem = (cartItems, { id }) => cartItems
+  .filter(item => item.id !== id);
