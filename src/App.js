@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
-import './App.css';
-
 import Header from './components/header/header.component';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import Checkout from './pages/checkout/checkout.component';
@@ -14,14 +12,17 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 
+import './App.css';
+
 class App extends React.Component {
   state = {
     currentUser: null
   };
   unsubscribeFromAuth = null;
 
-  componentDidMount() {
+  async componentDidMount() {
     const { setCurrentUser } = this.props;
+
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async user => {
       if (user) {
