@@ -4,9 +4,8 @@ import { Route } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 
 import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
-import { firestore, covertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
 import WithSpinner from '../../hoc/with-spinner/with-spinner.component';
-import { updateCollections } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
 import { selectShopIsLoading } from '../../redux/shop/shop.selectors';
 import CollectionPage from '../collection/collection.component';
 
@@ -14,22 +13,8 @@ const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
 const CollectionPageWithSpinner = WithSpinner(CollectionPage);
 
 class ShopComponent extends Component {
-  unsubscribeFromSnapshot = null;
-
   componentDidMount() {
-    const { updateCollections } = this.props;
-    const collectionRef = firestore.collection('collections');
-
-    this.unsubscribeFromSnapshot = collectionRef.onSnapshot(
-      async snapshot => {
-        const collections = covertCollectionsSnapshotToMap(snapshot);
-        updateCollections(collections);
-      }
-    );
-  }
-
-  componentWillUnmount() {
-    this.unsubscribeFromSnapshot();
+    this.props.fetchCollections();
   }
 
   render() {
@@ -52,7 +37,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateCollections: collections => dispatch(updateCollections(collections))
+  fetchCollections: () => dispatch(fetchCollectionsStartAsync())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShopComponent);
