@@ -4,7 +4,7 @@ const selectShop = ({ shop }) => shop;
 
 export const selectCollectionsList = createSelector(
   [selectShop],
-  ({ collections }) => Object.values(collections)
+  ({ collections }) => (collections && Object.values(collections)) || []
 );
 
 export const selectCollections = createSelector(
@@ -14,5 +14,10 @@ export const selectCollections = createSelector(
 
 export const selectCollection = collectionUrlParam => createSelector(
   [selectCollections],
-  collections => collections[collectionUrlParam]
+  collections => (collections && collections[collectionUrlParam]) || null
+);
+
+export const selectShopIsLoading = createSelector(
+  [selectShop],
+  ({ isLoading }) => isLoading
 );
