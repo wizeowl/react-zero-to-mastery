@@ -30,8 +30,30 @@ const userReducer = (state = INITIAL_STATE, { type, payload }) => {
         error: payload
       };
 
+    case userActionTypes.SIGNOUT_START:
+      return {
+        ...state,
+        isFetching: true,
+        error: null
+      };
+
+    case userActionTypes.SIGNOUT_SUCCESS:
+      return {
+        currentUser: null,
+        isFetching: false,
+        error: null
+      };
+
+    case userActionTypes.SIGNOUT_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: payload
+      };
+
     case userActionTypes.SET_CURRENT_USER:
       return { ...state, currentUser: payload };
+
     default:
       return state;
   }
