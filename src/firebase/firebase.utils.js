@@ -3,14 +3,14 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const config = {
-  apiKey: "AIzaSyDSIBbBsOC8m0GVLA4j6UL28W0NJ9xTYsw",
-  authDomain: "crwn-clothing-a131c.firebaseapp.com",
-  databaseURL: "https://crwn-clothing-a131c.firebaseio.com",
-  projectId: "crwn-clothing-a131c",
-  storageBucket: "crwn-clothing-a131c.appspot.com",
-  messagingSenderId: "839698012046",
-  appId: "1:839698012046:web:138b9662bf34a7a421b6df",
-  measurementId: "G-EX7Q875HLS"
+  apiKey: 'AIzaSyDSIBbBsOC8m0GVLA4j6UL28W0NJ9xTYsw',
+  authDomain: 'crwn-clothing-a131c.firebaseapp.com',
+  databaseURL: 'https://crwn-clothing-a131c.firebaseio.com',
+  projectId: 'crwn-clothing-a131c',
+  storageBucket: 'crwn-clothing-a131c.appspot.com',
+  messagingSenderId: '839698012046',
+  appId: '1:839698012046:web:138b9662bf34a7a421b6df',
+  measurementId: 'G-EX7Q875HLS'
 };
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
@@ -64,6 +64,15 @@ export const covertCollectionsSnapshotToMap = (collections) => {
       [title.toLowerCase()]: { title, ...rest }
     }), {}
   );
+};
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  });
 };
 
 firebase.initializeApp(config);
