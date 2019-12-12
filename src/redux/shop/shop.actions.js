@@ -1,4 +1,3 @@
-import { covertCollectionsSnapshotToMap, firestore } from '../../firebase/firebase.utils';
 import { shopActionTypes } from './shop.types';
 
 export const fetchCollectionsStart = () => ({
