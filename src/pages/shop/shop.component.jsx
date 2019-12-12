@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { createStructuredSelector } from 'reselect';
 
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component';
-import WithSpinner from '../../hoc/with-spinner/with-spinner.component';
+import { CollectionsOverviewContainer } from '../../components/collections-overview/collections-overview.container';
 import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
-import { selectShopIsLoading } from '../../redux/shop/shop.selectors';
-import CollectionPage from '../collection/collection.component';
-
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview);
-const CollectionPageWithSpinner = WithSpinner(CollectionPage);
+import { CollectionPageContainer } from '../collection/collection.container';
 
 class ShopComponent extends Component {
   componentDidMount() {
@@ -18,26 +12,18 @@ class ShopComponent extends Component {
   }
 
   render() {
-    const { match, isLoading } = this.props;
+    const { match } = this.props;
     return (
       <div className='shop-page'>
-        <Route exact path={`${match.path}`} render={
-          (props) => <CollectionsOverviewWithSpinner isLoading={isLoading} {...props}/>
-        }/>
-        <Route path={`${match.path}/:collectionId`} render={
-          (props) => <CollectionPageWithSpinner isLoading={isLoading} {...props} />
-        }/>
+        <Route exact path={`${match.path}`} component={CollectionsOverviewContainer}/>
+        <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer}/>
       </div>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  isLoading: selectShopIsLoading
-});
-
 const mapDispatchToProps = dispatch => ({
   fetchCollections: () => dispatch(fetchCollectionsStartAsync())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopComponent);
+export default connect(null, mapDispatchToProps)(ShopComponent);
