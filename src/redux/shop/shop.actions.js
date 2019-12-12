@@ -14,17 +14,3 @@ export const fetchCollectionsFailure = errorMessage => ({
   type: shopActionTypes.FETCH_COLLECTIONS_FAILURE,
   payload: errorMessage
 });
-
-export const fetchCollectionsStartAsync = () => {
-  return dispatch => {
-    const collectionRef = firestore.collection('collections');
-    dispatch(fetchCollectionsStart());
-
-    collectionRef.get()
-      .then(snapshot => {
-        const collections = covertCollectionsSnapshotToMap(snapshot);
-        dispatch(fetchCollectionsSuccess(collections));
-      })
-      .catch(({ message }) => dispatch(fetchCollectionsFailure(message)));
-  };
-};
