@@ -2,32 +2,37 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import StripeButton from '../../components/stripe-button/stripe-button.component';
 
 import { selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
-
-import './checkout.styles.scss';
+import {
+  CheckoutBlock,
+  CheckoutContainer,
+  CheckoutHeader,
+  CheckoutTotal,
+  StripeButtonContainer,
+  TestWarning
+} from './checkout.styles';
 
 const Checkout = ({ cartItems, total }) => {
   return (
-    <div className='checkout-page'>
-      <div className="checkout-header">
-        <div className="header-block">
+    <CheckoutContainer>
+      <CheckoutHeader>
+        <CheckoutBlock>
           <span>Product</span>
-        </div>
-        <div className="header-block">
+        </CheckoutBlock>
+        <CheckoutBlock>
           <span>Description</span>
-        </div>
-        <div className="header-block">
+        </CheckoutBlock>
+        <CheckoutBlock>
           <span>Quantity</span>
-        </div>
-        <div className="header-block">
+        </CheckoutBlock>
+        <CheckoutBlock>
           <span>Price</span>
-        </div>
-        <div className="header-block">
+        </CheckoutBlock>
+        <CheckoutBlock>
           <span>Remove </span>
-        </div>
-      </div>
+        </CheckoutBlock>
+      </CheckoutHeader>
 
       {
         cartItems.map(
@@ -35,16 +40,16 @@ const Checkout = ({ cartItems, total }) => {
         )
       }
 
-      <div className="total">
+      <CheckoutTotal>
         <span>TOTAL: ${total}</span>
-      </div>
-      <div className="test-warning">
+      </CheckoutTotal>
+      <TestWarning>
         *Please use the following test credit card for payments*
         <br/>
         4242 42424 4242 4242 - Exp: 01/20 - CVV : 123
-      </div>
-      <StripeButton price={total}/>
-    </div>
+      </TestWarning>
+      <StripeButtonContainer price={total}/>
+    </CheckoutContainer>
   );
 };
 
