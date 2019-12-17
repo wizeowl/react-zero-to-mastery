@@ -2,18 +2,13 @@ ls .id  # See https://help.github.com/articles/ignoring-files/ for more about ig
 
 # dependencies
 /node_modules
-/client/node_modules
 /.pnp
-/client/.pnp
 .pnp.js
-/client.pnp.js
 
 # testing
 /coverage
-/client/coverage
 
 # production
-/client/build
 
 # misc
 .idea
@@ -25,8 +20,5 @@ ls .id  # See https://help.github.com/articles/ignoring-files/ for more about ig
 .env
 
 npm-debug.log*
-/client/npm-debug.log*
 yarn-debug.log*
-/client/yarn-debug.log*
 yarn-error.log*
-/client/yarn-error.log*
