@@ -10,6 +10,7 @@ import { ApolloClient } from 'apollo-boost';
 
 import './index.css';
 import App from './App';
+import { resolvers, typeDefs } from './graphql/resolvers';
 import { store, persistor } from './redux/store';
 
 const httpLink = createHttpLink({
@@ -20,7 +21,13 @@ const cache = new InMemoryCache();
 
 const client = new ApolloClient({
   link: httpLink,
-  cache
+  cache,
+  typeDefs,
+  resolvers
+});
+
+client.writeData({
+  data: { hidden: true }
 });
 
 ReactDOM.render(
