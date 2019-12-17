@@ -10,6 +10,8 @@ const ShopComponent = ({ fetchCollections, match }) => {
   useEffect(() => {
     fetchCollections();
   }, [fetchCollections]);
+  console.log(fetchCollections);
+  console.log(match);
 
   return (
     <div className='shop-page'>
